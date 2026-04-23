@@ -2,7 +2,8 @@
 
 AdOpt AI is a full-stack MERN SaaS platform that helps small businesses optimize their digital advertising campaigns using AI-driven insights and analytics.
 
-deploy link :https://adopt-ai-ten.vercel.app/
+**🌟 Live Demo:** [https://adopt-ai-ten.vercel.app/](https://adopt-ai-ten.vercel.app/)
+
 ---
 
 ## 📌 Problem
@@ -97,62 +98,69 @@ AdOpt AI simplifies ad optimization by:
 ---
 
 ## 📂 Project Structure
+
+```text
 adopt-ai/
 │
-├── client/        # Frontend (React)
-├── server/        # Backend (Node/Express)
-├── README.md
-└── .gitignore
+├── client/          # Frontend (React/Vite)
+├── server/          # Backend (Node/Express)
+├── package.json     # Root orchestrator (concurrently)
+├── README.md        # Project documentation
+└── .gitignore       # Git ignore rules
+```
 
 ### Client Structure
+```text
 client/
 └── src/
-├── assets/
-├── components/
-│   ├── ui/
-│   │   ├── Button.jsx
-│   │   ├── Input.jsx
-│   │   └── Modal.jsx
-│   └── layout/
-│       ├── Navbar.jsx
-│       ├── Sidebar.jsx
-│       └── DashboardLayout.jsx
-├── pages/
-│   ├── auth/
-│   │   ├── Login.jsx
-│   │   └── Register.jsx
-│   ├── dashboard/
-│   │   └── Dashboard.jsx
-│   ├── campaign/
-│   │   ├── CampaignList.jsx
-│   │   └── CampaignDetail.jsx
-│   └── ai/
-│       └── Insights.jsx
-├── features/
-│   ├── auth/authSlice.js
-│   ├── campaign/campaignSlice.js
-│   ├── ai/aiSlice.js
-│   └── ui/uiSlice.js
-├── hooks/
-│   ├── useAuth.js
-│   ├── useDebounce.js
-│   └── useTheme.js
-├── services/
-│   ├── api.js
-│   ├── authService.js
-│   └── campaignService.js
-├── utils/
-│   ├── storage.js
-│   └── constants.js
-├── routes/
-│   ├── AppRoutes.jsx
-│   └── ProtectedRoute.jsx
-├── store/store.js
-├── App.jsx
-├── main.jsx
-└── index.css
+    ├── assets/
+    ├── components/
+    │   ├── ui/
+    │   │   ├── Button.jsx
+    │   │   ├── Input.jsx
+    │   │   └── Modal.jsx
+    │   └── layout/
+    │       ├── Navbar.jsx
+    │       ├── Sidebar.jsx
+    │       └── DashboardLayout.jsx
+    ├── pages/
+    │   ├── auth/
+    │   │   ├── Login.jsx
+    │   │   └── Register.jsx
+    │   ├── dashboard/
+    │   │   └── Dashboard.jsx
+    │   ├── campaign/
+    │   │   ├── CampaignList.jsx
+    │   │   └── CampaignDetail.jsx
+    │   └── ai/
+    │       └── Insights.jsx
+    ├── features/
+    │   ├── auth/authSlice.js
+    │   ├── campaign/campaignSlice.js
+    │   ├── ai/aiSlice.js
+    │   └── ui/uiSlice.js
+    ├── hooks/
+    │   ├── useAuth.js
+    │   ├── useDebounce.js
+    │   └── useTheme.js
+    ├── services/
+    │   ├── api.js
+    │   ├── authService.js
+    │   └── campaignService.js
+    ├── utils/
+    │   ├── storage.js
+    │   └── constants.js
+    ├── routes/
+    │   ├── AppRoutes.jsx
+    │   └── ProtectedRoute.jsx
+    ├── store/store.js
+    ├── App.jsx
+    ├── main.jsx
+    └── index.css
+```
 
 ### Server Structure
+```text
 server/
 ├── config/
 │   ├── db.js
@@ -188,6 +196,7 @@ server/
 ├── server.js
 ├── app.js
 └── .env
+```
 
 ---
 
