@@ -1,5 +1,6 @@
 import React from 'react';
-import { Calendar, MoreHorizontal, ArrowUpRight, ArrowRight, Wallet, Eye, MousePointerClick, Activity, CheckCircle2 } from 'lucide-react';
+import { Calendar, MoreHorizontal } from 'lucide-react';
+import KpiGrid from '../components/KpiGrid';
 
 const Dashboard = () => {
   return (
@@ -16,62 +17,7 @@ const Dashboard = () => {
       </div>
 
       {/* KPI Grid */}
-      <div className="kpi-grid">
-        <div className="kpi-card">
-          <div className="kpi-header">
-            <span>Total Spend</span>
-            <Wallet size={14} className="kpi-icon" />
-          </div>
-          <div className="kpi-value">$42,850</div>
-          <div className="kpi-trend positive">
-            <ArrowUpRight size={14} /> 12.5% vs last period
-          </div>
-        </div>
-
-        <div className="kpi-card">
-          <div className="kpi-header">
-            <span>Impressions</span>
-            <Eye size={14} className="kpi-icon" />
-          </div>
-          <div className="kpi-value">4.2M</div>
-          <div className="kpi-trend positive">
-            <ArrowUpRight size={14} /> 8.1% vs last period
-          </div>
-        </div>
-
-        <div className="kpi-card">
-          <div className="kpi-header">
-            <span>Clicks</span>
-            <MousePointerClick size={14} className="kpi-icon" />
-          </div>
-          <div className="kpi-value">125.4K</div>
-          <div className="kpi-trend positive">
-            <ArrowUpRight size={14} /> 14.2% vs last period
-          </div>
-        </div>
-
-        <div className="kpi-card highlight-card">
-          <div className="kpi-header">
-            <span className="roas-label"><Activity size={14} /> ROAS</span>
-            <Wallet size={14} className="kpi-icon" />
-          </div>
-          <div className="kpi-value">4.8x</div>
-          <div className="kpi-trend positive">
-            <ArrowUpRight size={14} /> 22.4% vs last period
-          </div>
-        </div>
-
-        <div className="kpi-card">
-          <div className="kpi-header">
-            <span>Conversions</span>
-            <CheckCircle2 size={14} className="kpi-icon" />
-          </div>
-          <div className="kpi-value">8,240</div>
-          <div className="kpi-trend neutral">
-            <ArrowRight size={14} /> 0.5% vs last period
-          </div>
-        </div>
-      </div>
+      <KpiGrid />
 
       {/* Charts Row */}
       <div className="charts-row">
