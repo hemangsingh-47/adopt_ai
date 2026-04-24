@@ -1,6 +1,8 @@
 import React from 'react';
 import { Calendar, MoreHorizontal } from 'lucide-react';
 import KpiGrid from '../components/KpiGrid';
+import LineChart from '../components/charts/LineChart';
+import BarChart from '../components/charts/BarChart';
 
 const Dashboard = () => {
   return (
@@ -26,24 +28,8 @@ const Dashboard = () => {
             <h3>Spend & Efficiency Over Time</h3>
             <MoreHorizontal size={16} className="text-muted" />
           </div>
-          {/* Chart Placeholder matching Figma visual */}
-          <div className="chart-placeholder line-chart">
-            <svg viewBox="0 0 400 150" className="mock-line" preserveAspectRatio="none">
-              <path d="M0,130 C100,100 150,110 250,50 C300,20 350,20 400,30" fill="none" stroke="#7c3aed" strokeWidth="4" />
-              <circle cx="250" cy="50" r="4" fill="#7c3aed" />
-              <circle cx="400" cy="30" r="4" fill="#7c3aed" />
-            </svg>
-            <div className="axis-y">
-              <span>$5k</span>
-              <span>$2.5k</span>
-              <span>$0</span>
-            </div>
-            <div className="axis-x">
-              <span>Mon</span>
-              <span>Wed</span>
-              <span>Fri</span>
-              <span>Sun</span>
-            </div>
+          <div className="chart-content">
+            <LineChart />
           </div>
         </div>
 
@@ -52,15 +38,8 @@ const Dashboard = () => {
             <h3>Click-Through Rate (CTR) by Audience</h3>
             <MoreHorizontal size={16} className="text-muted" />
           </div>
-          {/* Chart Placeholder matching Figma visual */}
-          <div className="chart-placeholder bar-chart">
-            <div className="bars-container">
-              <div className="bar-wrapper"><div className="bar empty" style={{height: '30%'}}></div><span>Gen Z</span></div>
-              <div className="bar-wrapper"><div className="bar active" style={{height: '70%'}}><span className="bar-label">4.2%</span></div><span className="text-active">Tech Pro</span></div>
-              <div className="bar-wrapper"><div className="bar empty" style={{height: '40%'}}></div><span>Parents</span></div>
-              <div className="bar-wrapper"><div className="bar empty" style={{height: '35%'}}></div><span>Students</span></div>
-              <div className="bar-wrapper"><div className="bar empty" style={{height: '50%'}}></div><span>Founders</span></div>
-            </div>
+          <div className="chart-content">
+            <BarChart />
           </div>
         </div>
       </div>
