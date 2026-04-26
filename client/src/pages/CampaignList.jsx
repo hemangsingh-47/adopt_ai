@@ -5,6 +5,7 @@ import { Search, Filter, ChevronDown, Bell, User as UserIcon, Plus } from 'lucid
 import { fetchCampaigns, createCampaign, updateCampaign, deleteCampaign } from '../features/campaign/campaignSlice';
 import CampaignTable from '../components/CampaignTable';
 import CampaignFormModal from '../components/CampaignFormModal';
+import NotificationBell from '../components/NotificationBell';
 import toast from 'react-hot-toast';
 
 const CampaignList = () => {
@@ -78,7 +79,7 @@ const CampaignList = () => {
           <button className="btn-new-campaign-top" onClick={openCreateModal}>
             <Plus size={16} /> New Campaign
           </button>
-          <button className="nav-icon-btn"><Bell size={20} /></button>
+          <NotificationBell />
           <button className="nav-icon-btn"><UserIcon size={20} /></button>
         </div>
       </div>
