@@ -1,5 +1,6 @@
 import React from 'react';
-import { Search, Bell, User } from 'lucide-react';
+import { Search, User } from 'lucide-react';
+import NotificationBell from '../components/NotificationBell.jsx';
 
 const Navbar = () => {
   return (
@@ -16,10 +17,7 @@ const Navbar = () => {
         </div>
         
         <div className="navbar-actions">
-          <button className="navbar-icon-btn notification-btn">
-            <Bell size={20} />
-            <span className="notification-dot"></span>
-          </button>
+          <NotificationBell />
           <button className="navbar-icon-btn profile-btn">
             <User size={20} />
           </button>
