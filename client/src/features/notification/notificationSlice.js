@@ -13,8 +13,7 @@ export const fetchNotifications = createAsyncThunk(
   'notification/getAll',
   async (_, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await notificationService.getNotifications(token);
+      return await notificationService.getNotifications();
     } catch (error) {
       const message =
         (error.response && error.response.data && error.response.data.message) ||
@@ -29,8 +28,7 @@ export const markNotificationRead = createAsyncThunk(
   'notification/markRead',
   async (id, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await notificationService.markAsRead(id, token);
+      return await notificationService.markAsRead(id);
     } catch (error) {
       const message =
         (error.response && error.response.data && error.response.data.message) ||
@@ -45,8 +43,7 @@ export const markAllNotificationsRead = createAsyncThunk(
   'notification/markAllRead',
   async (_, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await notificationService.markAllAsRead(token);
+      return await notificationService.markAllAsRead();
     } catch (error) {
       const message =
         (error.response && error.response.data && error.response.data.message) ||

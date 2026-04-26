@@ -10,6 +10,8 @@ import CampaignList from '../pages/CampaignList.jsx';
 
 import Insights from '../pages/Insights.jsx';
 import CampaignDetail from '../pages/CampaignDetail.jsx';
+import AudienceDashboard from '../pages/audience/AudienceDashboard.jsx';
+import ImportCSV from '../pages/campaign/ImportCSV.jsx';
 
 const AppRoutes = () => {
   return (
@@ -39,6 +41,16 @@ const AppRoutes = () => {
         }
       />
       <Route
+        path="/campaigns/import"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout>
+              <ImportCSV />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/campaigns/:id"
         element={
           <ProtectedRoute>
@@ -58,7 +70,16 @@ const AppRoutes = () => {
           </ProtectedRoute>
         } 
       />
-      <Route path="/audiences" element={<ProtectedRoute><DashboardLayout><div style={{padding: '2rem'}}>Audiences</div></DashboardLayout></ProtectedRoute>} />
+      <Route 
+        path="/audiences" 
+        element={
+          <ProtectedRoute>
+            <DashboardLayout>
+              <AudienceDashboard />
+            </DashboardLayout>
+          </ProtectedRoute>
+        } 
+      />
 
       
       <Route path="*" element={<div style={{ padding: '4rem', textAlign: 'center' }}>404 Not Found</div>} />

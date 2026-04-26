@@ -4,6 +4,7 @@ import campaignRoutes from './campaign.routes.js';
 import aiRoutes from './ai.routes.js';
 import uploadRoutes from './upload.routes.js';
 import notificationRoutes from './notification.routes.js';
+import audienceRoutes from './audience.routes.js';
 
 const router = express.Router();
 
@@ -21,5 +22,6 @@ router.use('/campaigns', campaignRoutes);
 router.use('/ai', aiRoutes);
 router.use('/upload', uploadRoutes);
 router.use('/notifications', notificationRoutes);
+router.use('/audiences', audienceRoutes);
 
 export default router;

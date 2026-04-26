@@ -54,7 +54,11 @@ const campaignSlice = createSlice({
     error: null,
   },
   reducers: {
-    resetError: (state) => { state.error = null; }
+    resetError: (state) => { state.error = null; },
+    importCampaigns: (state, action) => {
+      // Temporary state management: prepend imported campaigns
+      state.campaigns = [...action.payload, ...state.campaigns];
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -80,5 +84,5 @@ const campaignSlice = createSlice({
   }
 });
 
-export const { resetError } = campaignSlice.actions;
+export const { resetError, importCampaigns } = campaignSlice.actions;
 export default campaignSlice.reducer;
