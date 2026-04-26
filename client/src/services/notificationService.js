@@ -1,41 +1,24 @@
-import axios from 'axios';
+import API from '../utils/axios.js';
 
-const API_URL = 'http://localhost:5000/api/notifications/';
-
-const getNotifications = async (token) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-  const response = await axios.get(API_URL, config);
+const getNotifications = async () => {
+  const response = await API.get('/notifications');
   return response.data.data;
 };
 
-const markAsRead = async (id, token) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-  const response = await axios.put(`${API_URL}${id}/read`, {}, config);
+const markAsRead = async (id) => {
+  const response = await API.put(`/notifications/${id}/read`);
   return response.data.data;
 };
 
-const markAllAsRead = async (token) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-  const response = await axios.put(`${API_URL}read-all`, {}, config);
+const markAllAsRead = async () => {
+  const response = await API.put('/notifications/read-all');
   return response.data;
 };
 
 const notificationService = {
   getNotifications,
   markAsRead,
-  markAllAsRead,
+  markAllAsRead
 };
 
 export default notificationService;

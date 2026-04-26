@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSearchParams } from 'react-router-dom';
-import { Search, Filter, ChevronDown, Bell, User as UserIcon, Plus } from 'lucide-react';
+import { Search, Filter, ChevronDown, Bell, User as UserIcon, Plus, FileUp } from 'lucide-react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { fetchCampaigns, createCampaign, updateCampaign, deleteCampaign } from '../features/campaign/campaignSlice';
 import CampaignTable from '../components/CampaignTable';
 import CampaignFormModal from '../components/CampaignFormModal';
@@ -76,6 +76,9 @@ const CampaignList = () => {
           <input type="text" placeholder="Search campaigns..." className="search-input" />
         </div>
         <div className="nav-actions">
+          <Link to="/campaigns/import" className="btn-import-csv">
+            <FileUp size={16} /> Import CSV
+          </Link>
           <button className="btn-new-campaign-top" onClick={openCreateModal}>
             <Plus size={16} /> New Campaign
           </button>
