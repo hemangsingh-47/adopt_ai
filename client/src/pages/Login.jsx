@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import AuthForm from '../components/AuthForm.jsx';
 import { loginSchema } from '../utils/validation.js';
 import useAuth from '../hooks/useAuth.js';
+import SEO from '../components/SEO';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -31,7 +32,13 @@ const Login = () => {
   };
 
   return (
-    <AuthForm
+    <>
+      <SEO 
+        title="Login" 
+        description="Log in to your AdOpt AI account to manage your marketing campaigns and access AI-driven insights."
+        url="/login"
+      />
+      <AuthForm
       title="Welcome back"
       subtitle="Log in to your workspace to continue optimizing."
       initialValues={{ email: '', password: '' }}
@@ -39,6 +46,7 @@ const Login = () => {
       onSubmit={handleSubmit}
       isRegister={false}
     />
+    </>
   );
 };
 
