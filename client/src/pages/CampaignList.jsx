@@ -7,6 +7,7 @@ import CampaignTable from '../components/CampaignTable';
 import CampaignFormModal from '../components/CampaignFormModal';
 import NotificationBell from '../components/NotificationBell';
 import toast from 'react-hot-toast';
+import SEO from '../components/SEO';
 
 const CampaignList = () => {
   const dispatch = useDispatch();
@@ -69,6 +70,11 @@ const CampaignList = () => {
 
   return (
     <div className="campaign-list-page">
+      <SEO 
+        title="Campaigns" 
+        description="View and manage all your active and paused marketing campaigns. Optimize for better performance using AI insights."
+        url="/campaigns"
+      />
       {/* Top Bar */}
       <div className="top-search-nav">
         <div className="search-bar-wrapper">

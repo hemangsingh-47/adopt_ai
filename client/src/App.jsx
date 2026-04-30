@@ -1,13 +1,15 @@
-import React from 'react';
 import { Toaster } from 'react-hot-toast';
+import { HelmetProvider } from 'react-helmet-async';
 import AppRoutes from './routes';
 
 const App = () => {
   return (
-    <div className="app">
-      <Toaster position="top-right" />
-      <AppRoutes />
-    </div>
+    <HelmetProvider>
+      <div className="app">
+        <Toaster position="top-right" />
+        <AppRoutes />
+      </div>
+    </HelmetProvider>
   );
 };
 

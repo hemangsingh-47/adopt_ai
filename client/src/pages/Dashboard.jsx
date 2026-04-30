@@ -5,6 +5,7 @@ import { fetchPlatformData } from '../features/campaign/campaignSlice';
 import KpiGrid from '../components/KpiGrid';
 import LineChart from '../components/charts/LineChart';
 import BarChart from '../components/charts/BarChart';
+import SEO from '../components/SEO';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -15,19 +16,24 @@ const Dashboard = () => {
   }, [dispatch]);
 
   // Calculate aggregate KPIs
-  const totals = platformData.reduce((acc, curr) => {
-    acc.spend += curr.spend;
-    acc.clicks += curr.clicks;
-    acc.impressions += curr.impressions;
+  const totals = (platformData || []).reduce((acc, curr) => {
+    acc.spend += curr.spend || 0;
+    acc.clicks += curr.clicks || 0;
+    acc.impressions += curr.impressions || 0;
     return acc;
   }, { spend: 0, clicks: 0, impressions: 0 });
 
-  const avgCtr = platformData.length > 0 
-    ? (platformData.reduce((acc, curr) => acc + curr.ctr, 0) / platformData.length).toFixed(2)
+  const avgCtr = (platformData && platformData.length > 0)
+    ? (platformData.reduce((acc, curr) => acc + (curr.ctr || 0), 0) / platformData.length).toFixed(2)
     : 0;
 
   return (
     <div className="dashboard-page">
+      <SEO 
+        title="Dashboard" 
+        description="Monitor your real-time campaign performance and aggregate marketing metrics on the AdOpt AI dashboard."
+        url="/dashboard"
+      />
       {/* Header */}
       <div className="dashboard-header">
         <div>
@@ -86,7 +92,7 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {platformData.length > 0 ? (
+              {(platformData && platformData.length > 0) ? (
                 platformData.map((campaign, index) => (
                   <tr key={index}>
                     <td>
