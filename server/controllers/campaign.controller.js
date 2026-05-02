@@ -28,6 +28,36 @@ export const createCampaign = async (req, res) => {
   }
 };
 
+// @desc    Create multiple campaigns in bulk (CSV Import)
+// @route   POST /api/campaigns/bulk
+// @access  Private
+export const bulkCreateCampaigns = async (req, res) => {
+  try {
+    if (!Array.isArray(req.body) || req.body.length === 0) {
+      return res.status(400).json({ message: 'No campaigns provided for bulk insert' });
+    }
+
+    const campaignsToInsert = req.body.map(campaign => ({
+      ...campaign,
+      user: req.user._id
+    }));
+
+    const campaigns = await Campaign.insertMany(campaignsToInsert);
+
+    res.status(201).json({
+      status: 'success',
+      results: campaigns.length,
+      data: campaigns
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'fail',
+      message: error.message
+    });
+  }
+};
+
+
 // @desc    Get all campaigns for the logged-in user
 // @route   GET /api/campaigns
 // @access  Private

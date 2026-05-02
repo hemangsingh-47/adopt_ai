@@ -35,6 +35,18 @@ export const createCampaign = createAsyncThunk(
   }
 );
 
+export const importBulkCampaigns = createAsyncThunk(
+  'campaign/importBulk',
+  async (campaignsData, thunkAPI) => {
+    try {
+      return await campaignService.bulkCreateCampaigns(campaignsData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data?.message || error.message);
+    }
+  }
+);
+
+
 export const updateCampaign = createAsyncThunk(
   'campaign/update',
   async ({ id, campaignData }, thunkAPI) => {
@@ -68,11 +80,7 @@ const campaignSlice = createSlice({
     error: null,
   },
   reducers: {
-    resetError: (state) => { state.error = null; },
-    importCampaigns: (state, action) => {
-      // Temporary state management: prepend imported campaigns
-      state.campaigns = [...action.payload, ...state.campaigns];
-    }
+    resetError: (state) => { state.error = null; }
   },
   extraReducers: (builder) => {
     builder
@@ -103,9 +111,21 @@ const campaignSlice = createSlice({
       })
       .addCase(deleteCampaign.fulfilled, (state, action) => {
         state.campaigns = state.campaigns.filter(c => c._id !== action.payload);
+      })
+      .addCase(importBulkCampaigns.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(importBulkCampaigns.fulfilled, (state, action) => {
+        state.loading = false;
+        // Prepend the new campaigns
+        state.campaigns = [...action.payload.data, ...state.campaigns];
+      })
+      .addCase(importBulkCampaigns.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   }
 });
 
-export const { resetError, importCampaigns } = campaignSlice.actions;
+export const { resetError } = campaignSlice.actions;
 export default campaignSlice.reducer;

@@ -7,7 +7,8 @@ import useCSVParser from '../../hooks/useCSVParser';
 import csvService from '../../services/csvService';
 import CSVUpload from '../../components/CSVUpload';
 import CSVPreviewTable from '../../components/CSVPreviewTable';
-import { importCampaigns } from '../../features/campaign/campaignSlice';
+import { importBulkCampaigns } from '../../features/campaign/campaignSlice';
+
 import './csv_import.css';
 
 const ImportCSV = () => {
@@ -45,12 +46,19 @@ const ImportCSV = () => {
     setParsedData([]);
   };
 
-  const handleImport = () => {
+  const handleImport = async () => {
     if (parsedData.length === 0) return;
     
-    dispatch(importCampaigns(parsedData));
-    toast.success('Campaigns imported to dashboard!');
-    navigate('/campaigns');
+    setIsProcessing(true);
+    try {
+      await dispatch(importBulkCampaigns(parsedData)).unwrap();
+      toast.success('Campaigns imported to dashboard!');
+      navigate('/campaigns');
+    } catch (error) {
+      toast.error(error || 'Failed to import campaigns');
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   return (
@@ -77,8 +85,8 @@ const ImportCSV = () => {
             <CSVPreviewTable data={parsedData} />
             <div className="import-actions">
               <button className="btn-cancel" onClick={handleRemoveFile}>Discard</button>
-              <button className="btn-confirm" onClick={handleImport}>
-                <CheckCircle size={18} /> Import {parsedData.length} Campaigns
+              <button className="btn-confirm" onClick={handleImport} disabled={isProcessing}>
+                <CheckCircle size={18} /> {isProcessing ? 'Importing...' : `Import ${parsedData.length} Campaigns`}
               </button>
             </div>
           </>

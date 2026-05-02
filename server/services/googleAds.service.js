@@ -9,11 +9,12 @@ export const fetchGoogleMetrics = async (userId) => {
     const integration = await Integration.findOne({ user: userId, provider: 'google', status: 'active' });
     
     if (!integration) {
-      return null;
+      // Return empty array instead of mock data if there's no valid integration
+      return [];
     }
 
-    // Mock GAQL response as requested
     // In a real implementation, we would use googleAdsClient with integration.accessToken
+    // Since we don't have real credentials, we return the mock data ONLY if the user is connected
     const mockData = [
       {
         platform: 'Google',
