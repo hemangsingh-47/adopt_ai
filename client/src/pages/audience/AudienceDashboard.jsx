@@ -6,6 +6,7 @@ import { useDebounce } from '../../hooks/useDebounce';
 import AudienceCard from '../../components/audience/AudienceCard';
 import SegmentItem from '../../components/audience/SegmentItem';
 import AudienceFormModal from '../../components/audience/AudienceFormModal';
+import SEO from '../../components/SEO';
 import './audience.css';
 
 const AudienceDashboard = () => {
@@ -32,6 +33,11 @@ const AudienceDashboard = () => {
 
   return (
     <div className="audience-dashboard">
+      <SEO 
+        title="Audience Intelligence" 
+        description="Manage and optimize your active segments across platforms. View reach and match rate metrics."
+        url="/audiences"
+      />
       {/* Header */}
       <div className="audience-header-wrapper">
         <div className="audience-header">

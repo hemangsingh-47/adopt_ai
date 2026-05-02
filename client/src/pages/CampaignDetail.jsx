@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Filter, Grid, List } from 'lucide-react';
 import UploadZone from '../components/UploadZone.jsx';
 import FilePreview from '../components/FilePreview.jsx';
+import SEO from '../components/SEO';
 import './campaignDetail.css';
 
 const CampaignDetail = () => {
@@ -32,6 +33,11 @@ const CampaignDetail = () => {
 
   return (
     <div className="campaign-detail-page">
+      <SEO 
+        title="Creative Repository" 
+        description="Manage and optimize your campaign media assets. View performance metrics for individual creatives."
+        url="/campaigns"
+      />
       <div className="page-header">
         <div>
           <h1 className="page-title">Creative Repository</h1>
