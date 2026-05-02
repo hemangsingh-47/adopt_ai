@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import AuthForm from '../components/AuthForm.jsx';
 import { registerSchema } from '../utils/validation.js';
 import useAuth from '../hooks/useAuth.js';
+import SEO from '../components/SEO';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -31,7 +32,13 @@ const Register = () => {
   };
 
   return (
-    <AuthForm
+    <>
+      <SEO 
+        title="Create Account" 
+        description="Join AdOpt AI today and start optimizing your advertising campaigns with precision intelligence."
+        url="/register"
+      />
+      <AuthForm
       title="Create an account"
       subtitle="Join AdOpt AI to start optimizing your campaigns."
       initialValues={{ name: '', email: '', password: '' }}
@@ -39,6 +46,7 @@ const Register = () => {
       onSubmit={handleSubmit}
       isRegister={true}
     />
+    </>
   );
 };
 

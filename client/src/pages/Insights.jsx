@@ -4,6 +4,7 @@ import { getInsights, dismissInsight, applyInsightLocal, generateInsights } from
 import InsightList from '../components/InsightList.jsx';
 import { Sparkles, RefreshCw } from 'lucide-react';
 import toast from 'react-hot-toast';
+import SEO from '../components/SEO';
 import './insights.css';
 
 const Insights = () => {
@@ -44,6 +45,11 @@ const Insights = () => {
 
   return (
     <div className="page-container p-6">
+      <SEO 
+        title="Intelligence Hub" 
+        description="Review AI-driven optimizations and campaign insights to improve your marketing performance."
+        url="/insights"
+      />
       <div className="intelligence-hub-header">
         <div>
           <h1 className="intelligence-hub-title">

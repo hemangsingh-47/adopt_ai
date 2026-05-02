@@ -5,7 +5,7 @@ const SEO = ({ title, description, image, url, type = 'website' }) => {
   const siteName = 'AdOpt AI';
   const fullTitle = title ? `${title} | ${siteName}` : siteName;
   const defaultDescription = 'AdOpt AI - Precision marketing platform for optimized campaigns and audience intelligence.';
-  const siteUrl = 'https://adopt-ai.com'; // Placeholder base URL
+  const siteUrl = 'https://adopt-ai-ten.vercel.app'; // Production base URL
 
   return (
     <Helmet>

@@ -1,10 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Network, ArrowRight, ChevronDown, BarChart3, Zap, Shield } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const Landing = () => {
   return (
     <div className="landing">
+      <SEO 
+        title="Precision Marketing & Intelligence" 
+        description="Optimize your marketing campaigns with AI-driven insights. Reduce wasted ad spend and maximize ROAS with AdOpt AI's autonomous optimization engine."
+        url="/"
+      />
       {/* ── Navbar ── */}
       <nav className="landing-nav">
         <div className="landing-nav-inner">
