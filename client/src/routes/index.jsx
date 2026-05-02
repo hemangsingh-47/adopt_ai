@@ -13,6 +13,7 @@ import CampaignDetail from '../pages/CampaignDetail.jsx';
 import AudienceDashboard from '../pages/audience/AudienceDashboard.jsx';
 import ImportCSV from '../pages/campaign/ImportCSV.jsx';
 import ConnectAccounts from '../pages/auth/ConnectAccounts.jsx';
+import Creatives from '../pages/Creatives.jsx';
 
 const AppRoutes = () => {
   return (
@@ -93,6 +94,17 @@ const AppRoutes = () => {
       />
 
       
+      <Route 
+        path="/creatives" 
+        element={
+          <ProtectedRoute>
+            <DashboardLayout>
+              <Creatives />
+            </DashboardLayout>
+          </ProtectedRoute>
+        } 
+      />
+
       <Route path="*" element={<div style={{ padding: '4rem', textAlign: 'center' }}>404 Not Found</div>} />
     </Routes>
   );

@@ -44,6 +44,11 @@ const Sidebar = () => {
           <span>Audiences</span>
         </NavLink>
 
+        <NavLink to="/creatives" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
+          <Sparkles size={18} />
+          <span>Creatives</span>
+        </NavLink>
+
         <NavLink to="/settings/connect" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
           <LinkIcon size={18} />
           <span>Connect Accounts</span>
