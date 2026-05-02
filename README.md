@@ -6,6 +6,16 @@ AdOpt AI is a professional, full-stack MERN SaaS platform designed to empower sm
 
 ---
 
+## 🖼️ Screenshots
+
+![Landing Page](./screenshots/landing.png)
+*Modern, high-conversion landing page design.*
+
+![Dashboard Overview](./screenshots/dashboard.png)
+*Unified command center with real-time KPI tracking and interactive charts.*
+
+---
+
 ## ❗ Problem Statement
 
 Digital advertising is the lifeblood of modern business, yet it remains one of the most significant sources of wasted capital for small enterprises.
@@ -31,20 +41,23 @@ AdOpt AI bridges the gap between data and strategy by providing a simplified, AI
 ## 🎯 Features
 
 ### 📊 Intelligence & Analytics
-*   **Dashboard:** High-fidelity KPI tracking (Spend, Clicks, ROI, Conversions) with interactive Recharts visualizations.
+*   **Dashboard:** High-fidelity KPI tracking (Spend, Clicks, ROI, Conversions) with interactive Recharts visualizations and date range filtering.
 *   **AI Insights:** Automated generation of optimization suggestions using Grok/Groq.
 *   **Audience Intelligence:** Deep-dive analysis of customer segments and conversion patterns.
 
 ### 📈 Campaign Operations
 *   **Campaign CRUD:** Full lifecycle management of marketing campaigns with health scoring.
-*   **CSV Import:** Seamlessly import real-world data from external sources for immediate analysis.
-*   **Creatives Library:** Centralized hub for ad assets (images/videos) with direct Cloudinary integration.
+*   **Bulk CSV Import:** Securely import massive datasets from external sources with persistent MongoDB storage.
+*   **Creatives Library:** Centralized hub for ad assets (images/videos) with direct Cloudinary integration and grid/list view toggles.
 
 ### 🔐 Security & Infrastructure
 *   **Authentication:** Multi-layered security with JWT-based login and Google OAuth integration.
-*   **Notifications:** Real-time system alerts for budget overruns and performance milestones.
+*   **Settings & Profile:** Comprehensive user account management and preferences.
+*   **Integrations Safety:** Robust environment variable validation to prevent server crashes on missing API keys.
+*   **Notifications:** Real-time system alerts with intelligent empty-state handling.
 *   **Responsive UI:** Mobile-first design architecture using Tailwind CSS and Material UI.
 *   **SEO Optimized:** Dynamic meta tags and SEO best practices for maximum platform visibility.
+
 
 ---
 
@@ -139,9 +152,11 @@ npm run dev
 | :--- | :--- | :--- |
 | `/api/auth` | `POST` | User registration & JWT login |
 | `/api/campaigns` | `GET/POST` | Fetch all or create new campaigns |
+| `/api/campaigns/bulk` | `POST` | Bulk import campaigns from CSV data |
 | `/api/ai/insights`| `GET` | Generate AI optimization suggestions |
 | `/api/upload` | `POST` | Upload ad assets to Cloudinary |
 | `/api/notifications`| `GET` | Retrieve real-time system alerts |
+| `/api/oauth/status` | `GET` | Check connection status of Google/Meta accounts |
 
 ---
 
