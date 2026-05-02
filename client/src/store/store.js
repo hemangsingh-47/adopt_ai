@@ -5,6 +5,8 @@ import aiReducer from '../features/ai/aiSlice.js';
 import notificationReducer from '../features/notification/notificationSlice.js';
 import audienceReducer from '../features/audience/audienceSlice.js';
 
+import creativeReducer from '../features/creative/creativeSlice.js';
+
 const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -12,6 +14,7 @@ const store = configureStore({
     ai: aiReducer,
     notification: notificationReducer,
     audience: audienceReducer,
+    creative: creativeReducer,
   },
 });
 

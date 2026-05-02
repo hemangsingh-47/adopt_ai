@@ -1,0 +1,367 @@
+{
+	"info": {
+		"_postman_id": "adopt-ai-collection-v3",
+		"name": "AdOpt AI - Full API Documentation",
+		"description": "## 🚀 AdOpt AI Platform API\n\nWelcome to the AdOpt AI API documentation. This collection provides a comprehensive set of requests to interact with the AdOpt AI backend.\n\n### 🔴 CRITICAL: Fixing the 401 Unauthorized Error\nIf you see `\"message\": \"Not authorized, no token\"`, it means you haven't logged in yet. \n\n**Follow these steps to solve ALL problems:**\n1.  **Register**: Go to `1. Authentication > Register User`. Hit **Send**. (This saves your token automatically).\n2.  **Login**: Go to `1. Authentication > Login`. Hit **Send**. (This also saves/updates your token automatically).\n3.  **Run other APIs**: Now you can hit `Create Campaign`, `Get Insights`, etc. They will automatically use the saved token.\n\n### 🛠️ Configuration\n- `baseUrl`: `http://localhost:5000/api` (Default)\n- `token`: Managed automatically by the Test Scripts in Login/Register requests.\n\n### 🔐 Authentication\nThe collection uses **Bearer Token** authentication inherited from the root level. Ensure each request has **Authorization: Inherit auth from parent** selected (it is by default).",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Authentication",
+			"description": "User account management. Run Login/Register first to populate the `token` variable.",
+			"item": [
+				{
+					"name": "Register User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"    var jsonData = pm.response.json();",
+									"    pm.collectionVariables.set(\"token\", jsonData.token);",
+									"    console.log(\"Token saved successfully!\");",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Hemang\",\n    \"email\": \"hemang@example.com\",\n    \"password\": \"password123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    pm.collectionVariables.set(\"token\", jsonData.token);",
+									"    console.log(\"Token saved successfully!\");",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"hemang@example.com\",\n    \"password\": \"password123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2. Campaigns",
+			"item": [
+				{
+					"name": "List All Campaigns",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/campaigns",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"campaigns"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Campaign",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"AdOpt Launch\",\n    \"status\": \"Learning\",\n    \"dailyBudget\": 250,\n    \"spend\": 0,\n    \"roas\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/campaigns",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"campaigns"
+							]
+						},
+						"description": "**Valid Statuses:** Learning, Optimized, Paused\n**Required:** name, dailyBudget"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Campaign",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated Launch Name\",\n    \"dailyBudget\": 300,\n    \"status\": \"Optimized\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/campaigns/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"campaigns",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Campaign",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/campaigns/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"campaigns",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3. AI Insights",
+			"item": [
+				{
+					"name": "AI Advisor Chat",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"message\": \"Suggest 3 ways to improve my ROAS.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/ai/chat",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ai",
+								"chat"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Insights",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/ai/generate",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ai",
+								"generate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Insights",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/ai/insights",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ai",
+								"insights"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "4. Audiences",
+			"item": [
+				{
+					"name": "Get Audiences",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/audiences",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"audiences"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Audience",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"High Spenders\",\n    \"platform\": \"Meta Ads\",\n    \"size\": \"1.2M\",\n    \"conversionRate\": \"3.2%\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/audiences",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"audiences"
+							]
+						},
+						"description": "**Required Fields:** name, platform, size, conversionRate\n**Valid Platforms:** Meta Ads, Google Ads"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "5. System",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/health",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:5000/api",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
