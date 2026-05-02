@@ -7,6 +7,9 @@ const META_CLIENT_SECRET = process.env.META_CLIENT_SECRET;
 const REDIRECT_URI_BASE = process.env.REDIRECT_URI_BASE || 'http://localhost:5000/api/oauth';
 
 export const getGoogleAuthUrl = () => {
+  if (!GOOGLE_CLIENT_ID) {
+    throw new Error('Google integration is not configured on the server.');
+  }
   const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
   const options = {
     redirect_uri: `${REDIRECT_URI_BASE}/google/callback`,
@@ -26,6 +29,9 @@ export const getGoogleAuthUrl = () => {
 };
 
 export const getMetaAuthUrl = () => {
+  if (!META_CLIENT_ID) {
+    throw new Error('Meta integration is not configured on the server.');
+  }
   const rootUrl = 'https://www.facebook.com/v19.0/dialog/oauth';
   const options = {
     client_id: META_CLIENT_ID,

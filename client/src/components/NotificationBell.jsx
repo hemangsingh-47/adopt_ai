@@ -88,47 +88,7 @@ const NotificationBell = () => {
     ? notifications 
     : notifications.filter(n => n.type.toLowerCase() === filter.toLowerCase() || (filter === 'Optimizations' && n.type === 'optimization'));
 
-  // Mock initial data if none exists just to show the UI
-  const displayNotifications = filteredNotifications.length > 0 ? filteredNotifications : [
-    {
-      _id: '1',
-      title: 'Budget Overrun Detected',
-      message: 'Campaign Q3 Retargeting EMEA is projecting to exceed its daily cap by 24% within the next 4 hours due to an unexpected surge in CPC.',
-      type: 'critical',
-      read: false,
-      createdAt: new Date().toISOString(),
-      action1: 'Adjust Budget Cap',
-      action2: 'Pause Campaign'
-    },
-    {
-      _id: '2',
-      title: 'New Audience Segment Identified',
-      message: 'Our model has identified a highly engaged cluster within Lookalike Audience V2 showing a 35% higher predicted conversion rate. Separating this segment could improve ROAS.',
-      type: 'optimization',
-      read: false,
-      createdAt: new Date(Date.now() - 15 * 60000).toISOString(),
-      metadata: { roasShift: '+1.2x', size: '~45,000' },
-      action1: 'Apply Optimization',
-      action2: 'View Details'
-    },
-    {
-      _id: '3',
-      title: 'Creative Fatigue Warning',
-      message: 'Ad variant Hero_Video_V4 is experiencing a 15% drop in CTR over the last 48 hours. Consider rotating creatives.',
-      type: 'fatigue',
-      read: true,
-      createdAt: new Date(Date.now() - 2 * 3600000).toISOString(),
-      link: 'Go to Creative Library'
-    },
-    {
-      _id: '4',
-      title: 'Data Sync Complete',
-      message: 'Weekly CRM data sync finished successfully. 12,450 new user records processed and appended to Audience Models.',
-      type: 'system',
-      read: true,
-      createdAt: new Date(Date.now() - 24 * 3600000).toISOString()
-    }
-  ];
+  const displayNotifications = filteredNotifications;
 
   return (
     <div className="notification-bell-wrapper" ref={dropdownRef}>
@@ -173,49 +133,57 @@ const NotificationBell = () => {
           </div>
 
           <div className="notif-list">
-            {displayNotifications.map((notif) => (
-              <div key={notif._id} className={`notif-card ${notif.type} ${!notif.read ? 'unread' : ''}`} onClick={() => handleMarkRead(notif._id)}>
-                <div className="notif-icon-wrapper">
-                  {getIcon(notif.type)}
-                </div>
-                <div className="notif-content">
-                  <div className="notif-top">
-                    <h3 className="notif-card-title">
-                      {notif.title}
-                      {notif.type === 'optimization' && <span className="badge-ai">AI INSIGHT</span>}
-                    </h3>
-                    <span className="notif-time">
-                      {new Date(notif.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                    </span>
+            {displayNotifications.length > 0 ? (
+              displayNotifications.map((notif) => (
+                <div key={notif._id} className={`notif-card ${notif.type} ${!notif.read ? 'unread' : ''}`} onClick={() => handleMarkRead(notif._id)}>
+                  <div className="notif-icon-wrapper">
+                    {getIcon(notif.type)}
                   </div>
-                  <p className="notif-message">{notif.message}</p>
-                  
-                  {notif.metadata && (
-                    <div className="notif-metrics">
-                      <div className="metric">
-                        <span className="metric-label">Predicted ROAS Shift</span>
-                        <span className="metric-value text-green">{notif.metadata.roasShift}</span>
-                      </div>
-                      <div className="metric">
-                        <span className="metric-label">Audience Size</span>
-                        <span className="metric-value">{notif.metadata.size}</span>
-                      </div>
+                  <div className="notif-content">
+                    <div className="notif-top">
+                      <h3 className="notif-card-title">
+                        {notif.title}
+                        {notif.type === 'optimization' && <span className="badge-ai">AI INSIGHT</span>}
+                      </h3>
+                      <span className="notif-time">
+                        {new Date(notif.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      </span>
                     </div>
-                  )}
+                    <p className="notif-message">{notif.message}</p>
+                    
+                    {notif.metadata && (
+                      <div className="notif-metrics">
+                        <div className="metric">
+                          <span className="metric-label">Predicted ROAS Shift</span>
+                          <span className="metric-value text-green">{notif.metadata.roasShift}</span>
+                        </div>
+                        <div className="metric">
+                          <span className="metric-label">Audience Size</span>
+                          <span className="metric-value">{notif.metadata.size}</span>
+                        </div>
+                      </div>
+                    )}
 
-                  {notif.action1 && (
-                    <div className="notif-card-actions">
-                      <button className={`btn-${notif.type === 'critical' ? 'danger' : 'primary'}`}>{notif.action1}</button>
-                      <button className="btn-secondary">{notif.action2}</button>
-                    </div>
-                  )}
+                    {notif.action1 && (
+                      <div className="notif-card-actions">
+                        <button className={`btn-${notif.type === 'critical' ? 'danger' : 'primary'}`}>{notif.action1}</button>
+                        <button className="btn-secondary">{notif.action2}</button>
+                      </div>
+                    )}
 
-                  {notif.link && (
-                    <a href="#" className="notif-link">{notif.link} &rarr;</a>
-                  )}
+                    {notif.link && (
+                      <a href="#" className="notif-link">{notif.link} &rarr;</a>
+                    )}
+                  </div>
                 </div>
+              ))
+            ) : (
+              <div className="empty-notifications" style={{ textAlign: 'center', padding: '3rem 1rem', color: 'var(--text-muted)' }}>
+                <Bell size={32} style={{ margin: '0 auto 1rem', opacity: 0.2 }} />
+                <p>No notifications to display.</p>
+                <p style={{ fontSize: '0.75rem', marginTop: '0.5rem' }}>You're all caught up!</p>
               </div>
-            ))}
+            )}
           </div>
         </div>
       )}

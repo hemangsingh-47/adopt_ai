@@ -1,34 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Filter, Grid, List } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCreatives, uploadCreative } from '../features/creative/creativeSlice.js';
+import toast from 'react-hot-toast';
 import UploadZone from '../components/UploadZone.jsx';
 import FilePreview from '../components/FilePreview.jsx';
 import SEO from '../components/SEO';
 import './campaignDetail.css';
 
 const CampaignDetail = () => {
-  const [files, setFiles] = useState([
-    { name: 'summer_promo_v1.mp4', url: 'https://via.placeholder.com/300x200/2a2a35/ffffff?text=Summer+Promo', type: 'video/mp4' },
-    { name: 'lifestyle_geo_03.jpg', url: 'https://via.placeholder.com/300x200/2a2a35/ffffff?text=Lifestyle', type: 'image/jpeg' },
-    { name: 'tech_retro_ad.png', url: 'https://via.placeholder.com/300x200/2a2a35/ffffff?text=Tech+Retro', type: 'image/png' },
-  ]);
+  const dispatch = useDispatch();
+  const { creatives, loading, uploading } = useSelector((state) => state.creative);
+  const [viewMode, setViewMode] = useState('grid');
   
-  const [uploadingFiles, setUploadingFiles] = useState([]);
+  useEffect(() => {
+    dispatch(fetchCreatives());
+  }, [dispatch]);
 
-  const handleFilesSelected = (selectedFiles) => {
-    // Simulate upload process
-    const newUploadingFiles = selectedFiles.map(file => ({
-      file,
-      progress: 30, // Mock progress
-      id: Math.random().toString(36).substr(2, 9)
-    }));
+  const handleFilesSelected = async (selectedFiles) => {
+    // We only process the first file for simplicity in this demo,
+    // although a loop with Promise.all could handle multiple.
+    if (!selectedFiles || selectedFiles.length === 0) return;
     
-    setUploadingFiles(prev => [...prev, ...newUploadingFiles]);
+    const file = selectedFiles[0];
+    const formData = new FormData();
+    formData.append('file', file);
     
-    // Simulate completion after a delay
-    setTimeout(() => {
-      setUploadingFiles(prev => prev.filter(f => !newUploadingFiles.find(nf => nf.id === f.id)));
-      setFiles(prev => [...selectedFiles, ...prev]);
-    }, 3000);
+    try {
+      await dispatch(uploadCreative(formData)).unwrap();
+      toast.success('Creative uploaded successfully');
+    } catch (error) {
+      toast.error(error || 'Failed to upload creative');
+    }
   };
 
   return (
@@ -55,28 +58,51 @@ const CampaignDetail = () => {
         <div className="assets-header">
           <h2 className="assets-title">Active Assets</h2>
           <div className="view-toggles">
-            <button className="view-btn active"><Grid size={16} /></button>
-            <button className="view-btn"><List size={16} /></button>
+            <button 
+              className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
+              onClick={() => setViewMode('grid')}
+            >
+              <Grid size={16} />
+            </button>
+            <button 
+              className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
+              onClick={() => setViewMode('list')}
+            >
+              <List size={16} />
+            </button>
           </div>
         </div>
 
-        <div className="assets-grid">
-          {files.map((file, index) => (
-            <FilePreview key={index} file={file} />
-          ))}
+        <div className={`assets-${viewMode}`}>
+          {loading && <p className="text-gray-400 p-4">Loading creatives...</p>}
           
-          {uploadingFiles.map((upFile) => (
+          {uploading && (
+            <div className="file-preview-card uploading">
+              <div className="uploading-content">
+                <p>Uploading new creative...</p>
+              </div>
+            </div>
+          )}
+
+          {!loading && creatives && creatives.map((creative) => (
             <FilePreview 
-              key={upFile.id} 
-              file={upFile.file} 
-              isUploading={true} 
-              progress={upFile.progress} 
+              key={creative._id} 
+              file={{
+                name: creative.name,
+                url: creative.url,
+                type: creative.resourceType === 'video' ? 'video/mp4' : 'image/jpeg'
+              }} 
             />
           ))}
+          
+          {!loading && creatives.length === 0 && !uploading && (
+            <p className="text-gray-400 p-4 w-full col-span-full">No assets found. Upload some creatives above.</p>
+          )}
         </div>
       </div>
     </div>
   );
 };
+
 
 export default CampaignDetail;

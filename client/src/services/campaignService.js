@@ -20,5 +20,10 @@ const deleteCampaign = async (id) => {
   return response.data;
 };
 
-const campaignService = { getCampaigns, createCampaign, updateCampaign, deleteCampaign };
+const bulkCreateCampaigns = async (campaignsData) => {
+  const response = await API.post('/campaigns/bulk', campaignsData);
+  return response.data;
+};
+
+const campaignService = { getCampaigns, createCampaign, updateCampaign, deleteCampaign, bulkCreateCampaigns };
 export default campaignService;

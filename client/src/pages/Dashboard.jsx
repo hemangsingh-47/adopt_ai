@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Calendar, MoreHorizontal } from 'lucide-react';
+import React, { useEffect, useState, useRef } from 'react';
+import { Calendar, MoreHorizontal, ChevronDown } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPlatformData } from '../features/campaign/campaignSlice';
 import KpiGrid from '../components/KpiGrid';
@@ -10,9 +10,21 @@ import SEO from '../components/SEO';
 const Dashboard = () => {
   const dispatch = useDispatch();
   const { platformData, platformLoading } = useSelector((state) => state.campaign);
+  const [isDateOpen, setIsDateOpen] = useState(false);
+  const [dateRange, setDateRange] = useState('Last 30 Days');
+  const dateDropdownRef = useRef(null);
 
   useEffect(() => {
     dispatch(fetchPlatformData());
+    
+    // Close dropdown when clicking outside
+    const handleClickOutside = (event) => {
+      if (dateDropdownRef.current && !dateDropdownRef.current.contains(event.target)) {
+        setIsDateOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [dispatch]);
 
   // Calculate aggregate KPIs
@@ -40,9 +52,33 @@ const Dashboard = () => {
           <h1 className="dashboard-title">Overview</h1>
           <p className="dashboard-subtitle">Real-time performance metrics and live platform data.</p>
         </div>
-        <button className="date-picker-btn">
-          Last 30 Days <Calendar size={14} />
-        </button>
+        <div className="relative" ref={dateDropdownRef}>
+          <button 
+            className="date-picker-btn flex items-center gap-2"
+            onClick={() => setIsDateOpen(!isDateOpen)}
+          >
+            {dateRange} <Calendar size={14} />
+          </button>
+          
+          {isDateOpen && (
+            <div className="absolute right-0 mt-2 w-48 bg-[#1c1c24] border border-[#2a2a35] rounded-lg shadow-xl z-50 overflow-hidden">
+              <div className="py-1">
+                {['Today', 'Last 7 Days', 'Last 30 Days', 'This Quarter', 'This Year'].map(range => (
+                  <button
+                    key={range}
+                    className={`w-full text-left px-4 py-2 text-sm hover:bg-[#2a2a35] transition ${dateRange === range ? 'text-[#7b5EE5] font-medium bg-[#2a2a35]/50' : 'text-gray-300'}`}
+                    onClick={() => {
+                      setDateRange(range);
+                      setIsDateOpen(false);
+                    }}
+                  >
+                    {range}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* KPI Grid */}

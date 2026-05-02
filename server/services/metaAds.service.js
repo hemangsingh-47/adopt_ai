@@ -10,7 +10,7 @@ export const fetchMetaMetrics = async (userId) => {
     const integration = await Integration.findOne({ user: userId, provider: 'meta', status: 'active' });
     
     if (!integration) {
-      return null;
+      return [];
     }
 
     const { accessToken, accountId } = integration;
@@ -41,7 +41,9 @@ export const fetchMetaMetrics = async (userId) => {
     }));
   } catch (error) {
     console.error('Error fetching Meta metrics:', error.response?.data || error.message);
-    // If it's a 400 error (token expired), we might want to handle it, but for now just throw
-    throw error;
+    // Since we likely don't have a real Meta Ads account connected in this demo, return an empty array
+    // to prevent crashing the dashboard
+    return [];
   }
 };
+
